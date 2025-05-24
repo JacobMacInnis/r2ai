@@ -1,14 +1,18 @@
-[project]
+[tool.poetry]
 name = "r2ai"
 version = "0.1.0"
 description = ""
-authors = [
-    {name = "Jacob MacInnis"}
-]
+authors = ["Jacob MacInnis"]
 readme = "README.md"
-requires-python = ">=3.10"
-dependencies = [
-]
+packages = [{include = "agent"},]
+
+
+[tool.poetry.dependencies]
+python = ">=3.10"
+
+
+[tool.poetry.scripts]
+r2ai = "agent.main:main"
 
 
 [build-system]
