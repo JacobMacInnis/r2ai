@@ -49,13 +49,22 @@ def main():
         default="ollama",
         help="Which LLM backend to use",
     )
-    parser.add_argument("--path", required=True, help="Path to a Python file or folder")
+    group = parser.add_mutually_exclusive_group(required=True)
+    group.add_argument("--path", help="Path to a folder of Python files")
+    group.add_argument("--file", help="Path to a single Python file")
+
     args = parser.parse_args()
 
     print(f"[r2ai] Using model: {args.model}")
     print(f"[r2ai] Target path: {args.path}")
 
-    files = gather_python_files(args.path)
+    if args.file:
+        files = [args.file]
+    elif args.path:
+        files = gather_python_files(args.path)
+    else:
+        files = []
+
     if not files:
         print("[r2ai] No valid Python files found.")
         return
