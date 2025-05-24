@@ -3,16 +3,25 @@ name = "r2ai"
 version = "0.1.0"
 description = ""
 readme = "README.md"
-requires-python = ">=3.10"
+requires-python = ">=3.10, <4.0"
 authors = [{name = "Jacob MacInnis"}]
 
-dependencies = []
+dependencies = [
+"langgraph (>=0.4.7,<0.5.0)", 
+"langchain-core (>=0.3.61,<0.4.0)", 
+"langchain-openai (>=0.3.18,<0.4.0)", 
+"langchain-ollama (>=0.3.3,<0.4.0)"
+]
 
 [project.scripts]
 r2ai = "agent.main:main"
 
 [tool.poetry]
 packages = [{ include = "agent" }]  # still needed here for packaging
+
+[tool.poetry.group.dev.dependencies]
+black = "^25.1.0"
+ruff = "^0.11.11"
 
 [build-system]
 requires = ["poetry-core>=2.0.0,<3.0.0"]
