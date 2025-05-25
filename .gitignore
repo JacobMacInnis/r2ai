@@ -89,3 +89,7 @@ logs/
 Thumbs.db
 ehthumbs.db
 Desktop.ini
+
+
+# js
+node_modules

@@ -2,6 +2,7 @@
 from langgraph.graph import StateGraph, END
 from langchain_core.runnables import Runnable
 from agent.llm import get_llm
+from typing import TypedDict, Optional
 
 # Importing nodes
 from agent.nodes.ingest_node import ingest_node
@@ -12,14 +13,25 @@ from agent.nodes.post_refactor_analyze_node import post_refactor_analyze_node
 from agent.nodes.pr_node import pr_node
 
 
-# class AgentState(dict):
-#     pass
+# 👇 Explicit state
+class AgentState(TypedDict, total=False):
+    code: str
+    filename: str
+    model: str
+    needs_refactor: bool
+    ruff_output: str
+    refactored_code: str
+    post_ruff_output: str
+    accepted: bool
+    human_feedback: Optional[str]
+    refactor_file: str
+    __end__: bool
 
 
 def build_graph(
     model_choice: str,
 ) -> Runnable:
-    graph = StateGraph(dict)
+    graph = StateGraph(AgentState)
 
     llm = get_llm(model_choice)
     refactor_node = make_refactor_node(llm)
